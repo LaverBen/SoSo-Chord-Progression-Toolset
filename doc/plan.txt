@@ -1,0 +1,52 @@
+SoSo will be a tool for analysing the chord structures of one's favourite songs
+
+- It will involve a file format which can be parsed by all the SoSo tools - interprets data as 'chord type' + 'chord length'?
+- SoSo analysis tools ideas:
+    - Create files by specifying chord types and chord lengths
+    - Save files with song name and artist name into local registry
+    - Find most common chord progressions in songs one likes
+    - Able to rank chord transitions from most enjoyable to least enjoyable
+    - Annotate specific chords progressions with how they make one feel
+    - Find artist's most common chords progressions
+    - Annotate song with genre
+    - Find genre's most common chords progressions
+    - GUI for easily creating chord progression files
+    - Integrate other tools into the GUI
+    - ML tool for generating chord progressions similar to liked songs
+    - Remote registry for easily importing chord progression files made by others
+    - Compare your likes to others
+    - Chord namer
+    - Recommend songs with similar chord progressions to liked songs
+- File format - .ssf (SoSo File?)
+    - Use protobuf to save in binary format?
+    - A song has a name, artist, time signature and many chords
+    - A chord has a chord type and a chord length (in terms of bars)
+    - A chord type has a root and then many other notes played in respect to the root
+- File creator
+    - Query user for song name and artist
+    - Save to a song object
+    - Whenever the user wishes to start filling out the chords they can start with 'r' or 'record'
+    - When recording, the user is repeatedly prompted for chord type and then chord length
+    - When recording, the user can save the inputted chords with 's' or 'save'
+    - When recording, the user can quit without saving with 'q' or 'quit'
+    - If the chord type has been inputted but not the chord length (when saving or quitting), the last record is lost (with error message)
+    - After saving a chord progression to a song, the song can be ammended with 'a' or 'ammend'
+    - After choosing to ammend a chord progression, the user is prompted for a song name (or a quit signal - 'q' or 'quit')
+    - After a valid song is presented, the saved chord progression is displayed
+        - Display in the form of: __________________________________
+                                  Chord Number |  1  |  2  |   3   |
+                                  Chord        | C   | Am  | F9/D# |
+                                  Chord Length | 1/2 | 1/4 |   1   |
+    - User is prompted to pick a chord number to ammend
+    - User is prompted for chord type and then chord length
+    - User is asked whether they want to continue ammending or want to quit
+    - After saving a chord progression to a song, the song can be overwritten with 'o' or 'overwrite'
+    - When overwriting, the user is repeatedly prompted for chord type and then chord length
+    - When overwriting, the user can save the inputted chords with 's' or 'save'
+    - When overwriting, the user can quit without saving with 'q' or 'quit'
+    - After saving a chord progression to a song, the song can be displayed with 'd' or 'display'
+        - Display in the form of: __________________________________
+                                  Chord Number |  1  |  2  |   3   |
+                                  Chord        | C   | Am  | F9/D# |
+                                  Chord Length | 1/2 | 1/4 |   1   |
+    - The user can always view options with 'h', 'help' or 'options'
