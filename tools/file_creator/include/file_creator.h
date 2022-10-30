@@ -12,9 +12,9 @@ class file_creator
         void display();
         void quit();
         void help();
+        void not_recognised();
 
     public:
-        file_creator();
         void perform_action(std::string arg);
 
 };
@@ -25,7 +25,8 @@ enum arg_code {
     eOverwrite,
     eDisplay,
     eQuit,
-    eHelp
+    eHelp,
+    eError
 };
 
 #endif
