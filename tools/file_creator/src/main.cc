@@ -1,4 +1,5 @@
 #include <iostream>
+#include <file_creator.h>
 
 int main()
 {
@@ -6,9 +7,11 @@ int main()
     std::cout << "View options with 'h', 'help' or 'options'\n";
 
     std::string arg;
+    file_creator fc;
 
     do {
         std::cin >> arg;
+        fc.perform_action(arg);
     }
     while (arg != "q" && arg != "quit");
 }
