@@ -1,5 +1,5 @@
-#include <iostream>
 #include "file_creator.h"
+#include <iostream>
 
 int main()
 {
@@ -12,7 +12,7 @@ int main()
     do
     {
         std::cout << "SoSo File Creator: ";
-        std::cin >> arg;
+        std::getline(std::cin, arg);
         fc.perform_action(arg);
     }
     while (arg != "q" && arg != "quit");

@@ -6,6 +6,7 @@
 class file_creator
 {
     private:
+        bool file_test(std::string song_name, std::string artist);
         void record();
         void ammend();
         void overwrite();

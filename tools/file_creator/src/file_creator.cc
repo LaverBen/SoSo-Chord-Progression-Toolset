@@ -1,4 +1,5 @@
 #include "file_creator.h"
+#include <filesystem>
 
 arg_code hash_arg (std::string const& arg)
 {
@@ -32,6 +33,24 @@ arg_code hash_arg (std::string const& arg)
     }
 }
 
+bool file_creator::file_test(std::string song_name, std::string artist)
+{
+    const std::filesystem::path file_repo_path = "repo";
+    std::filesystem::file_status s = std::filesystem::file_status{};
+
+    if(std::filesystem::status_known(s) ? std::filesystem::exists(s) : std::filesystem::exists(file_repo_path))
+    {
+        std::cout << "Directory exists\n";
+    }
+    else
+    {
+        std::cout << "No file repository exists, creating file repository...\n";
+        std::filesystem::create_directory(file_repo_path);
+    }
+
+    return true;
+}
+
 void file_creator::perform_action(std::string arg)
 {
     switch (hash_arg(arg))
@@ -62,7 +81,22 @@ void file_creator::perform_action(std::string arg)
 
 void file_creator::record()
 {
-    std::cout << "Recording new song...\n";
+    std::string song_name;
+    std::string artist;
+
+    std::cout << "Song name: ";
+    std::getline(std::cin, song_name);
+    std::cout << "Artist: ";
+    std::getline(std::cin, artist);
+
+    if(file_test(song_name, artist))
+    {
+
+    }
+
+    std::cout << "Recording chords for: '" << song_name << "' - " << artist << std::endl;
+    std::cout << "Recording new song...\n" << "Use 's' or 'save' to save result\n";
+    std::cout << "Use 'q' or 'quit' to quit without saving\n";
 }
 
 void file_creator::ammend()
