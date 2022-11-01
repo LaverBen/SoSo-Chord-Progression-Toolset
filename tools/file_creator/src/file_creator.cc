@@ -1,5 +1,6 @@
 #include "file_creator.h"
 #include <filesystem>
+#include <fstream>
 
 arg_code hash_arg (std::string const& arg)
 {
@@ -36,9 +37,10 @@ arg_code hash_arg (std::string const& arg)
 bool file_creator::file_test(std::string song_name, std::string artist)
 {
     const std::filesystem::path file_repo_path = "repo";
-    std::filesystem::file_status s = std::filesystem::file_status{};
+    std::filesystem::file_status status = std::filesystem::file_status{};
+    std::string new_song = "'" + song_name + "'" + " - " + artist;
 
-    if(std::filesystem::status_known(s) ? std::filesystem::exists(s) : std::filesystem::exists(file_repo_path))
+    if(std::filesystem::status_known(status) ? std::filesystem::exists(status) : std::filesystem::exists(file_repo_path))
     {
         std::cout << "Directory exists\n";
     }
@@ -46,6 +48,21 @@ bool file_creator::file_test(std::string song_name, std::string artist)
     {
         std::cout << "No file repository exists, creating file repository...\n";
         std::filesystem::create_directory(file_repo_path);
+        std::ofstream WriteFileList("repo/FileList.txt");
+        WriteFileList.close();
+    }
+
+    std::ifstream CreateFileList("repo/FileList.txt");
+
+    std::string song_entry;
+    while (std::getline(CreateFileList, song_entry))
+    {
+        std::cout << "Comparing: " << new_song;
+        std::cout << " with: " << song_entry << std::endl;
+        if(new_song.compare(song_entry) == 0)
+        {
+            return false;
+        }
     }
 
     return true;
@@ -89,10 +106,15 @@ void file_creator::record()
     std::cout << "Artist: ";
     std::getline(std::cin, artist);
 
-    if(file_test(song_name, artist))
+    if(!file_test(song_name, artist))
     {
-
+        std::cout << "Song already exists - use 'o' or 'overwrite' to overwrite a song\n";
+        return;
     }
+
+    std::ofstream WriteFileList("repo/FileList.txt", std::fstream::app);
+    WriteFileList << "'" << song_name << "' - " << artist << "\n";
+    WriteFileList.close();
 
     std::cout << "Recording chords for: '" << song_name << "' - " << artist << std::endl;
     std::cout << "Recording new song...\n" << "Use 's' or 'save' to save result\n";
